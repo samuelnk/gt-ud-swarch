@@ -1,0 +1,18 @@
+1 ; CS 6210 Advanced Operating Systems ; 12
+2 ; CS 6250 Computer Networks ; 0
+3 ; CS 6300 Software Development Process ; 0
+4 ; CS 7641 Machine Learning ; 0
+5 ; CS 6290 High Performance Computer Architecture ; 0
+6 ; CS 6310 Software Architecture and Design ; 0
+7 ; CS 6440 Intro to Health Informatics ; 3
+8 ; CS 6505 Computability, Complexity and Algorithms ; 0
+9 ; CS 7637 Knowledge-Based Artificial Intelligence, Cognitive Systems ; 0
+10; CS 4495 Computer Vision ; 0
+11; CS 6475 Computational Photography ; 0
+12; CS 8803-002 Introduction to Operating Systems ; 0
+13; CS 8803-001 Artificial Intelligence for Robotics ; 9
+14; CS 6035 Introduction to Information Security ; 0
+15; CSE 6220 High-Performance Computing ; 0
+16; CS 7646 Machine Learning for Trading ; 4
+17; CS 8803 Special Topics: Reinforcement Learning ; 0
+18; CSE 8803 Special Topics: Big Data ; 0

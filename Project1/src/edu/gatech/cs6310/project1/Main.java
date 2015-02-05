@@ -9,36 +9,35 @@ import java.util.List;
 
 public class Main 
 {
-	static ArrayList<List<Integer>> studentSchedule;
+	static ArrayList<List<Integer>> studentlist;
+	static ArrayList<List<String>> courselist; 
+	static ArrayList<List<String>> semesterlist;
 	
 	 public static void main(String[] args) 
 	 {
 		 String filepath = "resources/student_schedule.txt";
+		 String coursefile = "resources/course_desc.txt";
+		 String semesterfile = "resources/semester_desc.txt";
 		 HashSet<Student> students;
-		 Student student;
+		 HashSet<Course> courses;
+		 HashSet<Semester> semesters;
+		 //Student student;
 		 
 		 
 		 LP lp = new LP();
-		 lp.setfilename(filepath);
-		 studentSchedule = lp.processRawFile();
+
+		 studentlist = lp.processRawFile(filepath);
+		 courselist = lp.processCourseFile(coursefile);
+		 semesterlist = lp.processSemesterFile(semesterfile);
 		 
-		 students = new HashSet<Student>();
+		 //lp.printlist(semesterlist);
 		 
-		 int i = 1;
-		 for (List<Integer> n : studentSchedule)
-		 {
-			 student = new Student();
-			 student.addSchedule(n);
-			 student.setId(i);
-			 students.add(student);
-			 i++;
-			 //System.out.println(n);
-		 }
+		 students = lp.createStudents(studentlist);
+		 courses = lp.createCourses(courselist);
+		 semesters = lp.createSemesters(semesterlist);
 		 
-		 for (Student s : students)
-		 {
-			 System.out.println(s.getId());
-		 }
+		 //students = new HashSet<Student>();
+		 
 		 
 		 
 		 

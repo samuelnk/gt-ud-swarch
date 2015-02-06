@@ -144,12 +144,7 @@ public class LP
 			students.add(student);
 			i++;
 			//System.out.println(n);
-		 }
-		
-		 for (Student s : students)
-		 {
-			 //System.out.println(s.getId());
-		 }
+		}		
 		return students;
 	}
 
@@ -190,6 +185,25 @@ public class LP
 			 //System.out.println(s.getCourseList());
 		 }
 		return semesters;
+	}
+
+	public void oneCourseConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	{
+		
+		for (Student s : students)
+		 {
+			for (Course c : courses)
+			{
+				for (Semester t : semesters)
+				{
+					System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId());
+				}
+				return;
+			}
+			 
+			 
+		 }
+		
 	}
 	
 	

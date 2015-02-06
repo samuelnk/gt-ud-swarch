@@ -36,6 +36,11 @@ public class Main
 		 courses = lp.createCourses(courselist);
 		 semesters = lp.createSemesters(semesterlist);
 		 
+		 lp.oneCourseConstrain(students,courses,semesters);
+		 
+		 //Test test = new Test();
+		 //test.start(students);
+		 
 		 //students = new HashSet<Student>();
 		 
 		 

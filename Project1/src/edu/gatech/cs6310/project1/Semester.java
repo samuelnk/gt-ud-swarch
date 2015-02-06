@@ -32,4 +32,9 @@ public class Semester
 		return courselist;
 	}
 
+	public String getId() 
+	{
+		return id;
+	}
+
 }

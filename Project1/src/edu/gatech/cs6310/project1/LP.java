@@ -281,46 +281,46 @@ public class LP
 		 }
 	}
 
-	public void studentsPerCourseConstrain(HashSet<Student> students,HashSet<Course> courses, HashSet<Semester> semesters) 
+	public void studentsPerCourseConstrain(HashSet<Student> students,HashSet<Course> courses, HashSet<Semester> semesters)
 	{
 		boolean track = false;
 		List<String> list = new ArrayList<String>();
 		String delims = "[ ,]+";
 		
 		for (Semester t : semesters)
-		 {
+		{
+
 			for (Course c : courses)
 			{
-				track = false;
 				String temp = "";
-				//System.out.println("Course:" + c.getId() + ":");
-				for (Student s : students)
+				String ctemp = t.getCourseList();
+				ctemp.trim();
+				String[] tokens = ctemp.split(delims);
+				for (String token : tokens)
 				{
-					//track = false;
-					
-					List<Integer> templist = new ArrayList<Integer>();
-					List<String> mycourses = new ArrayList<String>();
-					templist = s.getSchedule();
-					
-					for (int tmp : templist)
+					token.trim();
+					list.add(token);
+				}
+				
+				if (list.contains(c.getId().trim()))
+				{
+					//System.out.println("Course: " + c.getId().trim() + " is offered in Semester: " + t.getId());
+					for (Student s : students)
 					{
-						mycourses.add(Integer.toString(tmp));
-					}
-					
-					//x;
-					String ctemp = t.getCourseList();
-					ctemp.trim();
-					String[] tokens = ctemp.split(delims);
-					for (String token : tokens)
-					{
-						token.trim();
-						list.add(token);
-					}
-					
-					if (list.contains(c.getId().trim()))
-					{
+						//track = false;
+						
+						List<Integer> templist = new ArrayList<Integer>();
+						List<String> mycourses = new ArrayList<String>();
+						templist = s.getSchedule();
+						
+						for (int tmp : templist)
+						{
+							mycourses.add(Integer.toString(tmp));
+						}
+						
 						if (mycourses.contains((c.getId().trim())))
 						{
+							//System.out.println("Student: " + s.getId() + " can take class: " + c.getId().trim());
 							track = true;
 							
 							if (temp != "")
@@ -331,21 +331,65 @@ public class LP
 							//System.out.println(t.getName() + ": " + c.getId() + ": " + c.getName());
 							//System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId() + " + ");
 						}
-					}					
-					//System.out.println(u);
-					list.clear();
-				}
-				if (track)
-				{
+					}//end students
+					if (track)
+					{
 					temp = temp + " - X <= 0";
-					System.out.println(temp);
-				}
-				//System.out.println(temp);
-				//return;
+					//System.out.println(temp);
+					}
+					//return;
+				} //end if
+				list.clear();
+			} //end courses
+			//return;
+		} //end semester
+	}
+
+	public void prereqConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	{
+		List<String> list = new ArrayList<String>();
+		String delims = "[ ,]+";
+		
+		for (Student s : students)
+		 {
+			for (Course c : courses)
+			{
+				int m = 2;
+				int t = 2;
+				String temp = "";
 				
+				if (!c.getPrereq().trim().equals("0"))
+				{
+					//System.out.println(c.getId() + " : |" + c.getPrereq().trim() + "|");
+					while (m <= 12)
+					{
+						t = m;
+						temp = "";
+						
+						while (t >= 1)
+						{
+							//int ttemp = t-1;
+							
+							if (temp != "")
+							{
+								temp = temp + " + ";
+							}
+							
+							temp = temp + "S" + s.getId() + "_C" + c.getId().trim() + "_T" + t + " - " + "S" + s.getId() + "_C" + c.getPrereq().trim() + "_T" + t;
+							t = t-1;
+						}
+						temp = temp + " <= 0";
+						System.out.println(temp);
+						m++;						
+					}
+					
+					
+				}
+								
 			}
-			return;
+			//return;
 		 }
+		
 	}
 	
 	

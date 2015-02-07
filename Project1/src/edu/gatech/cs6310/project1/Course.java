@@ -23,14 +23,21 @@ public class Course
 		
 	}
 
-	public String getId() {
+	public String getId() 
+	{
 		// TODO Auto-generated method stub
 		return id;
 	}
 	
-	public String getName() {
+	public String getName() 
+	{
 		// TODO Auto-generated method stub
 		return name;
+	}
+	
+	public String getPrereq() {
+		// TODO Auto-generated method stub
+		return prereq;
 	}
 
 }

@@ -39,6 +39,7 @@ public class Main
 		 lp.oneCourseConstrain(students,courses,semesters);
 		 lp.coursesPerSemesterConstrain(students,courses,semesters);
 		 lp.studentsPerCourseConstrain(students,courses,semesters);
+		 lp.prereqConstrain(students,courses,semesters);
 		 
 		 //Test test = new Test();
 		 //test.start(students);

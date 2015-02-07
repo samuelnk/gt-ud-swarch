@@ -27,5 +27,10 @@ public class Course
 		// TODO Auto-generated method stub
 		return id;
 	}
+	
+	public String getName() {
+		// TODO Auto-generated method stub
+		return name;
+	}
 
 }

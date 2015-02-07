@@ -5,10 +5,11 @@ import java.util.List;
 public class Student {
 	
 	int id;
+	List<Integer> list;
 
 	public void addSchedule(List<Integer> n) 
 	{
-		// TODO Auto-generated method stub
+		list = n;
 		
 	}
 
@@ -21,6 +22,11 @@ public class Student {
 	public int getId() {
 		// TODO Auto-generated method stub
 		return id;
+	}
+	
+	public List<Integer> getSchedule() 
+	{
+		return list;
 	}
 
 }

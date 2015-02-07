@@ -37,6 +37,8 @@ public class Main
 		 semesters = lp.createSemesters(semesterlist);
 		 
 		 lp.oneCourseConstrain(students,courses,semesters);
+		 lp.coursesPerSemesterConstrain(students,courses,semesters);
+		 lp.studentsPerCourseConstrain(students,courses,semesters);
 		 
 		 //Test test = new Test();
 		 //test.start(students);

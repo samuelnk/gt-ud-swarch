@@ -132,8 +132,8 @@ public class LP
 		return semesters;
 	}
 
-	public HashSet<Student> createStudents(ArrayList<List<Integer>> studentlist) {
-		// TODO Auto-generated method stub
+	public HashSet<Student> createStudents(ArrayList<List<Integer>> studentlist) 
+	{
 		HashSet<Student> students = new HashSet<Student>();
 		int i = 1;
 		for (List<Integer> n : studentlist)
@@ -189,21 +189,163 @@ public class LP
 
 	public void oneCourseConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
 	{
+		List<String> list = new ArrayList<String>();
+		String delims = "[ ,]+";
 		
 		for (Student s : students)
 		 {
 			for (Course c : courses)
 			{
+				String temp = "";
+				//System.out.println("Course:" + c.getId() + ":");
 				for (Semester t : semesters)
 				{
-					System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId());
+					String u = t.getCourseList();
+					u.trim();
+					String[] tokens = u.split(delims);
+					for (String token : tokens)
+					{
+						token.trim();
+						//token.replaceAll("^\\s+|\\s+$", "");
+						list.add(token);
+						//System.out.println(":" + token + ":");
+					}
+					if (list.contains(c.getId().trim()))
+					{
+						if (temp != "")
+						{
+							temp = temp + " + ";
+						}
+						temp = temp + "S" + s.getId() + "_C" + c.getId().trim() + "_T" + t.getId().trim();
+						//System.out.println(t.getName() + ": " + c.getId() + ": " + c.getName());
+						//System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId() + " + ");
+					}
+					//System.out.println(u);
+					list.clear();
 				}
-				return;
+				temp = temp + " = 1";
+				//System.out.println(temp);
+				
 			}
+			//return;
 			 
 			 
 		 }
 		
+	}
+
+	public void coursesPerSemesterConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	{
+		
+		List<String> list = new ArrayList<String>();
+		String delims = "[ ,]+";
+		
+		for (Student s : students)
+		 {
+			for (Semester t : semesters)
+			{
+				String temp = "";
+				//System.out.println("Course:" + c.getId() + ":");
+				for (Course c : courses)
+				{
+					String u = t.getCourseList();
+					u.trim();
+					String[] tokens = u.split(delims);
+					for (String token : tokens)
+					{
+						token.trim();
+						//token.replaceAll("^\\s+|\\s+$", "");
+						list.add(token);
+						//System.out.println(":" + token + ":");
+					}
+					if (list.contains(c.getId().trim()))
+					{
+						if (temp != "")
+						{
+							temp = temp + " + ";
+						}
+						temp = temp + "S" + s.getId() + "_C" + c.getId().trim() + "_T" + t.getId().trim();
+						//System.out.println(t.getName() + ": " + c.getId() + ": " + c.getName());
+						//System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId() + " + ");
+					}
+					//System.out.println(u);
+					list.clear();
+				}
+				temp = temp + " <= 2";
+				//System.out.println(temp);
+				
+			}
+			//return;
+			 
+			 
+		 }
+	}
+
+	public void studentsPerCourseConstrain(HashSet<Student> students,HashSet<Course> courses, HashSet<Semester> semesters) 
+	{
+		boolean track = false;
+		List<String> list = new ArrayList<String>();
+		String delims = "[ ,]+";
+		
+		for (Semester t : semesters)
+		 {
+			for (Course c : courses)
+			{
+				track = false;
+				String temp = "";
+				//System.out.println("Course:" + c.getId() + ":");
+				for (Student s : students)
+				{
+					//track = false;
+					
+					List<Integer> templist = new ArrayList<Integer>();
+					List<String> mycourses = new ArrayList<String>();
+					templist = s.getSchedule();
+					
+					for (int tmp : templist)
+					{
+						mycourses.add(Integer.toString(tmp));
+					}
+					
+					//x;
+					String ctemp = t.getCourseList();
+					ctemp.trim();
+					String[] tokens = ctemp.split(delims);
+					for (String token : tokens)
+					{
+						token.trim();
+						list.add(token);
+					}
+					
+					if (list.contains(c.getId().trim()))
+					{
+						if (mycourses.contains((c.getId().trim())))
+						{
+							track = true;
+							
+							if (temp != "")
+							{
+								temp = temp + " + ";
+							}
+							temp = temp + "S" + s.getId() + "_C" + c.getId().trim() + "_T" + t.getId().trim();
+							//System.out.println(t.getName() + ": " + c.getId() + ": " + c.getName());
+							//System.out.println("S" + s.getId() + "_C" + c.getId() + "_T" + t.getId() + " + ");
+						}
+					}					
+					//System.out.println(u);
+					list.clear();
+				}
+				if (track)
+				{
+					temp = temp + " - X <= 0";
+					System.out.println(temp);
+				}
+				//System.out.println(temp);
+				//return;
+				
+			}
+			return;
+		 }
 	}
 	
 	

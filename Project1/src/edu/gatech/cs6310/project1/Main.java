@@ -1,5 +1,6 @@
 package edu.gatech.cs6310.project1;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +14,7 @@ public class Main
 	static ArrayList<List<String>> courselist; 
 	static ArrayList<List<String>> semesterlist;
 	
-	 public static void main(String[] args) 
+	 public static void main(String[] args) throws IOException 
 	 {
 		 String filepath = "resources/student_schedule.txt";
 		 String coursefile = "resources/course_desc.txt";
@@ -31,7 +32,7 @@ public class Main
 		 semesterlist = lp.processSemesterFile(semesterfile);
 		 
 		 //lp.printlist(semesterlist);
-		 
+		
 		 students = lp.createStudents(studentlist);
 		 courses = lp.createCourses(courselist);
 		 semesters = lp.createSemesters(semesterlist);
@@ -40,13 +41,11 @@ public class Main
 		 lp.coursesPerSemesterConstrain(students,courses,semesters);
 		 lp.studentsPerCourseConstrain(students,courses,semesters);
 		 lp.prereqConstrain(students,courses,semesters);
+		 lp.binaryStatement();
 		 
-		 //Test test = new Test();
-		 //test.start(students);
+		 System.out.println("CPLEX file saved in resources/students.lp");
 		 
-		 //students = new HashSet<Student>();
-		 
-		 
+		 lp.runGurobi();
 		 
 		 
 	 }

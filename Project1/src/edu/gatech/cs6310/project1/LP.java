@@ -1,7 +1,11 @@
 package edu.gatech.cs6310.project1;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -187,10 +191,19 @@ public class LP
 		return semesters;
 	}
 
-	public void oneCourseConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	public void oneCourseConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) throws IOException
 	{
+		String outfile = "resources/students.lp";
 		List<String> list = new ArrayList<String>();
 		String delims = "[ ,]+";
+		
+		FileWriter fstream = new FileWriter(outfile);
+		BufferedWriter out = new BufferedWriter(fstream);
+		
+		out.write("Min X");
+		out.newLine();
+		out.write("Subject To");
+		out.newLine();
 		
 		for (Student s : students)
 		 {
@@ -225,17 +238,23 @@ public class LP
 				}
 				temp = temp + " = 1";
 				//System.out.println(temp);
+				out.write(temp);
+				out.newLine();
 				
 			}
 			//return;
 			 
 			 
 		 }
+		out.close();
 		
 	}
 
-	public void coursesPerSemesterConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	public void coursesPerSemesterConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters)  throws IOException
 	{
+		String outfile = "resources/students.lp";
+		FileWriter fstream = new FileWriter(outfile, true);
+		BufferedWriter out = new BufferedWriter(fstream);
 		
 		List<String> list = new ArrayList<String>();
 		String delims = "[ ,]+";
@@ -273,16 +292,22 @@ public class LP
 				}
 				temp = temp + " <= 2";
 				//System.out.println(temp);
+				out.write(temp);
+				out.newLine();
 				
 			}
-			//return;
-			 
-			 
+			//return;			 
+			//
 		 }
+		out.close();	
 	}
 
-	public void studentsPerCourseConstrain(HashSet<Student> students,HashSet<Course> courses, HashSet<Semester> semesters)
+	public void studentsPerCourseConstrain(HashSet<Student> students,HashSet<Course> courses, HashSet<Semester> semesters) throws IOException
 	{
+		String outfile = "resources/students.lp";
+		FileWriter fstream = new FileWriter(outfile, true);
+		BufferedWriter out = new BufferedWriter(fstream);
+		
 		boolean track = false;
 		List<String> list = new ArrayList<String>();
 		String delims = "[ ,]+";
@@ -336,6 +361,8 @@ public class LP
 					{
 					temp = temp + " - X <= 0";
 					//System.out.println(temp);
+					out.write(temp);
+					out.newLine();
 					}
 					//return;
 				} //end if
@@ -343,10 +370,15 @@ public class LP
 			} //end courses
 			//return;
 		} //end semester
+		out.close();
 	}
 
-	public void prereqConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) 
+	public void prereqConstrain(HashSet<Student> students, HashSet<Course> courses, HashSet<Semester> semesters) throws IOException 
 	{
+		String outfile = "resources/students.lp";
+		FileWriter fstream = new FileWriter(outfile, true);
+		BufferedWriter out = new BufferedWriter(fstream);
+		
 		List<String> list = new ArrayList<String>();
 		String delims = "[ ,]+";
 		
@@ -379,7 +411,9 @@ public class LP
 							t = t-1;
 						}
 						temp = temp + " <= 0";
-						System.out.println(temp);
+						//System.out.println(temp);
+						out.write(temp);
+						out.newLine();
 						m++;						
 					}
 					
@@ -389,6 +423,57 @@ public class LP
 			}
 			//return;
 		 }
+		out.close();		
+	}
+
+	public void binaryStatement() throws IOException
+	{
+		String outfile = "resources/students.lp";
+		FileWriter fstream = new FileWriter(outfile, true);
+		BufferedWriter out = new BufferedWriter(fstream);
+		
+		out.write("Binary");
+		out.newLine();
+		
+		for(int s = 1; s <= 600; s = s+1)
+		{
+			for(int c = 1; c <= 18; c = c+1)
+			{
+				for(int t = 1; t <= 12; t = t+1)
+				{
+					//System.out.println("S" + s + "_C" + c + "_T" + t);
+					out.write("S" + s + "_C" + c + "_T" + t);
+					out.newLine();
+
+				}
+			}
+		}
+		out.write("end");
+		out.newLine();
+		out.close();
+	}
+
+	public void runGurobi() throws IOException 
+	{
+		//Runtime.getRuntime().exec("/opt/gurobi600/linux64/bin/gurobi_cl ResultFile=resources/output.sol resources/students.lp");
+		
+		String[] cmd = {"/opt/gurobi600/linux64/bin/gurobi_cl", "ResultFile=/home/ubuntu/workspace/Project1/resources/output.sol", "/home/ubuntu/workspace/Project1/resources/students.lp"};
+		Runtime.getRuntime().exec(cmd);
+		try {
+            Process proc = Runtime.getRuntime().exec(cmd);
+            BufferedReader read = new BufferedReader(new InputStreamReader(
+                    proc.getInputStream()));
+            try {
+                proc.waitFor();
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+            while (read.ready()) {
+                System.out.println(read.readLine());
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 		
 	}
 	

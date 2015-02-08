@@ -30,5 +30,10 @@
 			<type>1</type>
 			<location>/home/ubuntu/workspace/Project1/resources/student_schedule.txt</location>
 		</link>
+		<link>
+			<name>resources/students.lp</name>
+			<type>1</type>
+			<location>/home/ubuntu/workspace/Project1/resources/students.lp</location>
+		</link>
 	</linkedResources>
 </projectDescription>

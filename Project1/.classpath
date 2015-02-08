@@ -7,5 +7,6 @@
 			<attribute name="javadoc_location" value="jar:file:/usr/share/doc/libglpk-java/glpk-java-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/opt/gurobi600/linux64/lib/gurobi.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

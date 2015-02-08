@@ -45,7 +45,10 @@ public class Main
 		 
 		 System.out.println("CPLEX file saved in resources/students.lp");
 		 
-		 lp.runGurobi();
+		 //lp.runGurobi();
+		 lp.model();
+		 System.out.println("------------------------------------------------------------");
+		 System.out.println("Solution output to file resources/model.sol");
 		 
 		 
 	 }

@@ -1,2 +1,0 @@
-This program assumes the executable gurobi_cl is located in the directory /opt/gurobi600/linux64/bin/. 
-If it is not, edit the runGurobi() method in the LP.java file and specify the absolute path to the gurobi_cl executable. 

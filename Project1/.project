@@ -21,6 +21,11 @@
 			<location>/home/ubuntu/workspace/Project1/resources/course_desc.txt</location>
 		</link>
 		<link>
+			<name>resources/model.sol</name>
+			<type>1</type>
+			<location>/home/ubuntu/workspace/Project1/resources/model.sol</location>
+		</link>
+		<link>
 			<name>resources/semester_desc.txt</name>
 			<type>1</type>
 			<location>/home/ubuntu/workspace/Project1/resources/semester_desc.txt</location>

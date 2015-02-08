@@ -1,5 +1,7 @@
 package edu.gatech.cs6310.project1;
 
+import gurobi.*;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -457,7 +459,8 @@ public class LP
 	{
 		//Runtime.getRuntime().exec("/opt/gurobi600/linux64/bin/gurobi_cl ResultFile=resources/output.sol resources/students.lp");
 		
-		String[] cmd = {"/opt/gurobi600/linux64/bin/gurobi_cl", "ResultFile=/home/ubuntu/workspace/Project1/resources/output.sol", "/home/ubuntu/workspace/Project1/resources/students.lp"};
+		//String[] cmd = {"/bin/ls", "-l"};
+		String[] cmd = {"/home/ubuntu/Downloads/gurobi/gurobi600/linux64/bin/gurobi_cl1"};  //, "ResultFile=/home/ubuntu/workspace/Project1/resources/output.sol", "/home/ubuntu/workspace/Project1/resources/students.lp"};
 		Runtime.getRuntime().exec(cmd);
 		try {
             Process proc = Runtime.getRuntime().exec(cmd);
@@ -474,6 +477,52 @@ public class LP
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+		
+	}
+
+	public void model() 
+	{
+		// TODO Auto-generated method stub
+		try 
+		{
+		      GRBEnv env = new GRBEnv();
+		      GRBModel model = new GRBModel(env, "resources/students.lp");
+
+		      model.optimize();
+
+		      int optimstatus = model.get(GRB.IntAttr.Status);
+
+		      if (optimstatus == GRB.Status.INF_OR_UNBD) {
+		        model.getEnv().set(GRB.IntParam.Presolve, 0);
+		        model.optimize();
+		        optimstatus = model.get(GRB.IntAttr.Status);
+		      }
+
+		      if (optimstatus == GRB.Status.OPTIMAL) {
+		        double objval = model.get(GRB.DoubleAttr.ObjVal);
+		        System.out.println("Optimal objective: " + objval);
+		      } else if (optimstatus == GRB.Status.INFEASIBLE) {
+		        System.out.println("Model is infeasible");
+
+		        // Compute and write out IIS
+		        model.computeIIS();
+		        model.write("model.ilp");
+		      } else if (optimstatus == GRB.Status.UNBOUNDED) {
+		        System.out.println("Model is unbounded");
+		      } else {
+		        System.out.println("Optimization was stopped with status = "
+		                           + optimstatus);
+		      }
+
+		      // Dispose of model and environment
+		      model.write("resources/model.sol");
+		      model.dispose();
+		      env.dispose();
+
+		    } catch (GRBException e) {
+		      System.out.println("Error code: " + e.getErrorCode() + ". " +
+		          e.getMessage());
+		    }
 		
 	}
 	

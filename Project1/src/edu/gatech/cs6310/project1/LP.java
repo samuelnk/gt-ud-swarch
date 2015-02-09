@@ -482,7 +482,12 @@ public class LP
 
 	public void model() 
 	{
-		// TODO Auto-generated method stub
+		//This method is based on Gurobi example code
+		//author = "Gurobi Optimization, Inc.",
+		//title = "Gurobi Quick Reference Guide",
+		//year = 2015,
+		//url = "http://www.gurobi.com"
+		
 		try 
 		{
 		      GRBEnv env = new GRBEnv();
